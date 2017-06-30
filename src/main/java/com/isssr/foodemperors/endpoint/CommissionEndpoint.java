@@ -24,7 +24,7 @@ public class CommissionEndpoint {
     @RequestMapping(path = "api/commission", method = RequestMethod.POST)
     public Commission saveCommission(@RequestBody CommissionDTO commissionDTO){
         try {
-            HttpResponse<com.mashape.unirest.http.JsonNode> postResponse = Unirest.post("http://localhost:8080/api/commissions")
+            HttpResponse<com.mashape.unirest.http.JsonNode> postResponse = Unirest.post("http://localhost:8080/api/pos/commissions")
                     .header("accept", "application/json")
                     .header("Content-Type", "application/json")
                     .body(commissionDTO)
