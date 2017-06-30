@@ -184,4 +184,20 @@ public class Batch {
         return (status == 1);
     }
 
+    @Override
+    public String toString() {
+        return "Batch{" +
+                "id='" + id + '\'' +
+                ", product=" + product +
+                ", expDate='" + expDate + '\'' +
+                ", delDate='" + delDate + '\'' +
+                ", quantity=" + quantity +
+                ", status=" + status +
+                ", commission=" + commission +
+                ", number=" + number +
+                ", remaining=" + remaining +
+                ", price=" + price +
+                ", sale=" + sale +
+                '}';
+    }
 }

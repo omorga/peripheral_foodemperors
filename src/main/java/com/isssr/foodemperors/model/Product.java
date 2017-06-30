@@ -193,4 +193,21 @@ public class Product {
     public void setPack(List<Integer> pack) {
         this.pack = pack;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", averageDeliveryTime='" + averageDeliveryTime + '\'' +
+                ", stockist='" + stockist + '\'' +
+                ", price='" + price + '\'' +
+                ", properties=" + properties +
+                ", category=" + category +
+                ", description='" + description + '\'' +
+                ", propertylist=" + propertylist +
+                ", charge=" + charge +
+                ", pack=" + pack +
+                '}';
+    }
 }

@@ -3,6 +3,7 @@ package com.isssr.foodemperors.service;
 import com.isssr.foodemperors.dto.CommissionDTO;
 import com.isssr.foodemperors.model.Batch;
 import com.isssr.foodemperors.model.Commission;
+import com.isssr.foodemperors.model.Product;
 import com.isssr.foodemperors.repository.BatchRepository;
 import com.isssr.foodemperors.repository.CommissionRepository;
 import org.springframework.stereotype.Service;
@@ -23,13 +24,19 @@ public class CommissionService {
     @Inject
     private BatchRepository batchRepository;
 
+    @Inject
+    private ProductService productService;
+
     public Commission saveCommission(Commission commission, List<Batch> batches){
         commission.setCompleted(false);
         Commission comm = commissionRepository.save(commission);
         for (Batch batch: batches){
             batch.setCommission(comm);
             batch.setStatus(0);
-            batchRepository.save(batch);
+            Product p = batch.getProduct();
+            System.out.println(p.toString());
+            batch.setProduct(productService.saveProduct(p));
+            Batch temp = batchRepository.save(batch);
         }
         return comm;
     }
