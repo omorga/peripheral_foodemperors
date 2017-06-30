@@ -3,7 +3,6 @@ package com.isssr.foodemperors.service;
 import com.isssr.foodemperors.dto.CommissionDTO;
 import com.isssr.foodemperors.model.*;
 import com.isssr.foodemperors.repository.BatchRepository;
-import com.isssr.foodemperors.repository.BatchesRelationRepository;
 import com.isssr.foodemperors.repository.CatalogueRepository;
 import com.isssr.foodemperors.repository.CommissionRepository;
 import org.springframework.stereotype.Service;
@@ -29,9 +28,6 @@ public class BatchService {
 
     @Inject
     private CatalogueRepository catalogueRepository;
-
-    @Inject
-    private BatchesRelationRepository batchesRelationRepository;
 
 
     public CommissionDTO saveBatch(ArrayList<Batch> batches) {
@@ -111,22 +107,6 @@ public class BatchService {
         {
             commission.setCompleted(true);
             commissionRepository.save(commission);
-        }
-        //4) Aggiorna BatchesRelation (NOTA: outBatches e inBatches vanno a 2 a 2!)
-        for(i=0;i<outBatches.size();i++) {
-            BatchesRelation batchesRelation = batchesRelationRepository.findByBatch(ourBatches.get(i));
-            System.out.println(batchesRelation);
-            List<Batch> outBatch;
-            if(batchesRelation == null) {
-                batchesRelation = new BatchesRelation();
-                batchesRelation.setBatch(ourBatches.get(i));
-                outBatch = new ArrayList<>();
-            }
-            else
-                outBatch = batchesRelation.getOutBatches();
-            outBatch.add(outBatches.get(i));
-            batchesRelation.setOutBatches(outBatch);
-            batchesRelationRepository.save(batchesRelation);
         }
         return null;
     }
