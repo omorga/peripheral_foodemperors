@@ -65,9 +65,14 @@ public class CommissionEndpoint {
         } catch (UnirestException e) {
             e.printStackTrace();
         }
-        return commissionService.saveCommission(commissionDTO.getCommission(),commissionDTO.getBatches());
+        return null;
     }
 
+    @RequestMapping(path = "api/mc/commission", method = RequestMethod.POST)
+    public Commission storeCommission(@RequestBody CommissionDTO commissionDTO){
+        System.out.println("    la commissione :"+commissionDTO);
+        return commissionService.saveCommission(commissionDTO.getCommission(),commissionDTO.getBatches());
+    }
     @RequestMapping(path = "api/commission/findby/number/{number}", method = RequestMethod.GET)
     public CommissionDTO searchCommissionByNumber(@PathVariable int number) {
         return commissionService.searchCommissionByNumber(String.valueOf(number));
