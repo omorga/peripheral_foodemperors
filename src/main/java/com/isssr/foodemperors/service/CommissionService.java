@@ -34,24 +34,6 @@ public class CommissionService {
         return comm;
     }
 
-    public Commission updateCommission(Commission commission,List<Batch> batches){
-        Commission comm = commissionRepository.save(commission);
-        List<Batch> oldBatches = batchRepository.findByCommissionId(comm.getId());
-        for (Batch batch: batches){
-            if (batch.getCommission() == null)
-                batch.setCommission(comm);
-            batchRepository.save(batch);
-        }
-        for (Batch batch : oldBatches){
-            boolean found = false;
-            for (int i = 0 ; i < batches.size() && !found; i++){
-                found = (batch.getId().equals(batches.get(i).getId()));
-            }
-            if (!found)
-                batchRepository.deleteById(batch.getId());
-        }
-        return comm;
-    }
 
     public CommissionDTO searchCommissionByNumber(String number) {
         Commission commission = commissionRepository.findByNumber(number);
@@ -74,8 +56,4 @@ public class CommissionService {
         return dtoCommissions;
     }
 
-    public Long deleteCommission(String id) {
-        batchRepository.deleteByCommissionId(id);
-        return commissionRepository.deleteById(id);
-    }
 }

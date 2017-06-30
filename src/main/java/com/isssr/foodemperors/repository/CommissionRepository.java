@@ -9,7 +9,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface CommissionRepository extends MongoRepository<Commission, Long> {
 
     Commission findByNumber(String Number);
-    Long deleteById(String Id);
     Commission findById(String Id);
 
 }

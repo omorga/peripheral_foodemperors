@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="foodemperors" />
+        <module name="peripheral_foodemperors" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="foodemperors" target="1.8" />
+      <module name="peripheral_foodemperors" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
