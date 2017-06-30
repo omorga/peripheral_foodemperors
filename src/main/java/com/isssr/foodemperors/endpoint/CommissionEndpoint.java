@@ -22,12 +22,16 @@ public class CommissionEndpoint {
     private CommissionService commissionService;
 
     @RequestMapping(path = "api/commission", method = RequestMethod.POST)
-    public Commission saveCommission(@RequestBody CommissionDTO commissionDTO) throws UnirestException {
-        HttpResponse<com.mashape.unirest.http.JsonNode> postResponse = Unirest.post("http://localhost:8080/api/commissions")
-                .header("accept", "application/json")
-                .header("Content-Type", "application/json")
-                .body(commissionDTO)
-                .asJson();
+    public Commission saveCommission(@RequestBody CommissionDTO commissionDTO){
+        try {
+            HttpResponse<com.mashape.unirest.http.JsonNode> postResponse = Unirest.post("http://localhost:8080/api/commissions")
+                    .header("accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .body(commissionDTO)
+                    .asJson();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
         return commissionService.saveCommission(commissionDTO.getCommission(),commissionDTO.getBatches());
     }
 
