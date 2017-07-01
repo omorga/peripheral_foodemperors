@@ -14,9 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 
 
-/**
- * Created by marco on 03/06/17.
- */
 @RestController
 @CrossOrigin(origins = "*")
 public class CategoryEndpoint {

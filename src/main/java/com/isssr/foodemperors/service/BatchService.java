@@ -162,4 +162,15 @@ public class BatchService {
         return whisper;
     }
 
+    public Batch decreaseBatch(String id, int quantity) {
+        Batch b = batchRepository.findById(id);
+        if(b != null) {
+            b.setRemaining(b.getRemaining()-quantity);
+            batchRepository.save(b);
+            return b;
+        }
+        else
+            return null;
+    }
+
 }

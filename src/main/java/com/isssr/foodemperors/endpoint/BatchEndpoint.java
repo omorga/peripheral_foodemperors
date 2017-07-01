@@ -10,15 +10,10 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by simone on 29/05/17.
- */
-
 
 @RestController
 @CrossOrigin(origins = "*")
 public class BatchEndpoint {
-
 
     @Inject
     private BatchService batchService;
@@ -57,5 +52,10 @@ public class BatchEndpoint {
     public List<Batch> getAllBatches() {
         return batchService.getAllBatches();
 
+    }
+
+    @RequestMapping(path = "api/pos/decreaseBatch/{id}", method = RequestMethod.GET)
+    public Batch decreaseBatch(@PathVariable("id") String id, @RequestParam("quantity") int quantity) {
+        return batchService.decreaseBatch(id,quantity);
     }
 }
