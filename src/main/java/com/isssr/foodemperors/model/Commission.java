@@ -7,9 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- * Created by mariusdragosionita on 23/05/17.
- */
 @Entity
 public class  Commission {
 

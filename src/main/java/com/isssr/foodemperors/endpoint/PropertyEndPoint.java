@@ -6,10 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.util.List;
 
-/**
- * Created by Caim03 on 12/06/17.
- */
-
 @RestController
 @CrossOrigin(origins = "*")
 public class PropertyEndPoint {

@@ -46,33 +46,35 @@ public class CommissionEndpoint {
                 }
             }
         });
-
-
-
     }
 
     @RequestMapping(path = "api/commission", method = RequestMethod.POST)
-    public Commission saveCommission(@RequestBody CommissionDTO commissionDTO){
-        if (commissionDTO == null)
-            System.out.println("Null");
-        else
-            this.setMapper();
+    public Commission saveCommission(@RequestBody CommissionDTO commissionDTO,HttpServletRequest request, HttpServletResponse response){
+        commissionService.saveCommission(commissionDTO.getCommission(),commissionDTO.getBatches());
+        CommissionDTO dt = commissionService.searchCommissionByNumber(commissionDTO.getCommission().getNumber());
+        this.setMapper();
         try {
             HttpResponse<com.mashape.unirest.http.JsonNode> postResponse = Unirest.post("http://160.80.134.103:8080/api/pos/commission")
                     .header("Content-Type", "application/json")
-                    .body(commissionDTO)
+                    .body(dt)
                     .asJson();
+            if(postResponse.getStatus()>=400) {
+                long b= commissionService.deleteCommission(dt.getCommission().getId());
+                response.setStatus(postResponse.getStatus());
+            }
         } catch (UnirestException e) {
+            commissionService.deleteCommission(dt.getCommission().getId());
+            response.setStatus(500);
             e.printStackTrace();
         }
         return null;
     }
 
-    @RequestMapping(path = "api/mc/commission", method = RequestMethod.POST)
-    public Commission storeCommission(@RequestBody CommissionDTO commissionDTO){
-        System.out.println("    la commissione :"+commissionDTO);
-        return commissionService.saveCommission(commissionDTO.getCommission(),commissionDTO.getBatches());
+    @RequestMapping(path = "api/mc/commission", method = RequestMethod.PUT)
+    public Commission updateCommission(@RequestBody CommissionDTO commissionDTO){
+        return commissionService.updateCommission(commissionDTO.getCommission(),commissionDTO.getBatches());
     }
+
     @RequestMapping(path = "api/commission/findby/number/{number}", method = RequestMethod.GET)
     public CommissionDTO searchCommissionByNumber(@PathVariable int number) {
         return commissionService.searchCommissionByNumber(String.valueOf(number));

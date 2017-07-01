@@ -8,9 +8,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Created by marco on 19/05/17.
- */
+
 @RestController
 @CrossOrigin(origins = "*")
 public class UserEndpoint {

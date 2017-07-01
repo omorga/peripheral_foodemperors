@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-/**
- * Created by mariusdragosionita on 23/05/17.
- */
+
 @RestController
 @CrossOrigin(origins = "*")
 public class ProductEndpoint {
