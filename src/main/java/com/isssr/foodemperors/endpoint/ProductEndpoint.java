@@ -1,7 +1,6 @@
 package com.isssr.foodemperors.endpoint;
 
 import com.isssr.foodemperors.model.Product;
-import com.isssr.foodemperors.repository.ProductRepository;
 import com.isssr.foodemperors.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,9 +13,6 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 public class ProductEndpoint {
-
-    @Inject
-    private ProductRepository productRepository;
 
     @Inject
     private ProductService productService;
@@ -35,7 +31,7 @@ public class ProductEndpoint {
 
     @RequestMapping(path = "api/product/findby/name/{name}", method = RequestMethod.GET)
     public List<Product> searchProduct(@PathVariable String name) {
-        return productRepository.findByName(name);
+        return productService.findByName(name);
     }
 
     @RequestMapping(path = "api/product/findby/category/properties/{strings}", method = RequestMethod.GET)
@@ -45,13 +41,13 @@ public class ProductEndpoint {
 
     @RequestMapping(path = "api/products", method = RequestMethod.GET)
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        return productService.findAll();
     }
 
     @RequestMapping(path = "api/product/{id}", method = RequestMethod.DELETE)
     public Long deleteProduct(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) {
 
-        Long product =  productRepository.deleteById(id);
+        Long product =  productService.deleteById(id);
         if (product == 0){
             response.setStatus(404);
             return null;
@@ -62,7 +58,7 @@ public class ProductEndpoint {
     @RequestMapping(path = "api/product/update", method = RequestMethod.PUT)
     public Product updateProduct(@RequestBody Product product) {
         /* La funzione save inserisce un elemento se non esiste, altrimenti lo aggiorna */
-        return productRepository.save(product);
+        return productService.save(product);
     }
 
     //TODO MERGE WITH API/PRODUCT/UPDATE

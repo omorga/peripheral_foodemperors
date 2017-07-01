@@ -59,4 +59,8 @@ public class CategoryService {
     public Category findById(String name) {
         return categoryRepository.findById(name);
     }
+
+    public List<Category> findBySons(Object o) {
+        return categoryRepository.findBySons(null);
+    }
 }
