@@ -27,18 +27,23 @@ public class CommissionService {
     @Inject
     private ProductService productService;
 
-    public Commission saveCommission(Commission commission, List<Batch> batches){
+    public CommissionDTO saveCommission(Commission commission, List<Batch> batches){
         commission.setCompleted(false);
         Commission comm = commissionRepository.save(commission);
+        CommissionDTO dto = new CommissionDTO();
+        dto.setCommission(comm);
+        List<Batch> dtoBatches = new ArrayList<>();
         for (Batch batch: batches){
             batch.setCommission(comm);
             batch.setStatus(0);
             Product p = batch.getProduct();
-            System.out.println(p.toString());
             batch.setProduct(productService.saveProduct(p));
             Batch temp = batchRepository.save(batch);
+            dtoBatches.add(temp);
         }
-        return comm;
+
+        dto.setBatches(dtoBatches);
+        return dto;
     }
 
     public Long deleteCommission(String id) {

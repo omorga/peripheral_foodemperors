@@ -2,6 +2,7 @@ package com.isssr.foodemperors.endpoint;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.isssr.foodemperors.config.AppConfig;
 import com.isssr.foodemperors.dto.CommissionDTO;
 import com.isssr.foodemperors.model.Commission;
 import com.isssr.foodemperors.service.CommissionService;
@@ -50,11 +51,13 @@ public class CommissionEndpoint {
 
     @RequestMapping(path = "api/commission", method = RequestMethod.POST)
     public Commission saveCommission(@RequestBody CommissionDTO commissionDTO,HttpServletRequest request, HttpServletResponse response){
-        commissionService.saveCommission(commissionDTO.getCommission(),commissionDTO.getBatches());
-        CommissionDTO dt = commissionService.searchCommissionByNumber(commissionDTO.getCommission().getNumber());
+
+
+        CommissionDTO dt = commissionService.saveCommission(commissionDTO.getCommission(),commissionDTO.getBatches());
+//        CommissionDTO dt = commissionService.searchCommissionByNumber(commissionDTO.getCommission().getNumber());
         this.setMapper();
         try {
-            HttpResponse<com.mashape.unirest.http.JsonNode> postResponse = Unirest.post("http://160.80.134.103:8080/api/pos/commission")
+            HttpResponse<com.mashape.unirest.http.JsonNode> postResponse = Unirest.post(AppConfig.MC_IP + "/api/pos/commission")
                     .header("Content-Type", "application/json")
                     .body(dt)
                     .asJson();
