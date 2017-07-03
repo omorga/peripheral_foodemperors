@@ -1,9 +1,9 @@
-##Configurazione
+## Configurazione
 
 Importare il progetto in un IDE, impostare le credenziali di MongoDB 
 in source `src/resources/application.properties`
 
-##Run
+## Run
 
 1)Avviare il progetto da IDE
 
